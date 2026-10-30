@@ -11,3 +11,4 @@ class Cart:
     def total(self, discount=0):
         subtotal = sum(p * q for _, p, q in self.items)
         return add_tax(apply_discount(subtotal, discount))
+    # Testing GitHub Actions warm cache.
