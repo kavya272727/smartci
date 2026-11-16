@@ -12,12 +12,12 @@ MODEL = "llama-3.3-70b-versatile"
 def summarize_log():
     api_key = os.getenv("LLM_API_KEY")
     if not api_key:
-        print("Error: LLM_API_KEY environment variable is missing.")
+        print("Error: LLM_API_KEY environment variable is missing.", file=sys.stderr)
         sys.exit(1)
 
     log_path = Path(LOG_FILE)
     if not log_path.is_file():
-        print(f"Error: Log file not found: {LOG_FILE}")
+        print(f"Error: Log file not found: {LOG_FILE}", file=sys.stderr)
         sys.exit(1)
 
     # Keep the prompt within a predictable size by sending only the log tail.
@@ -62,10 +62,10 @@ BUILD LOG:
         print("## LLM Build Failure Summary\n")
         print(summary)
     except requests.RequestException as error:
-        print(f"Groq API request failed: {error}")
+        print(f"Groq API request failed: {error}", file=sys.stderr)
         sys.exit(1)
     except (KeyError, IndexError, TypeError, ValueError) as error:
-        print(f"Could not read the LLM response: {error}")
+        print(f"Could not read the LLM response: {error}", file=sys.stderr)
         sys.exit(1)
 
 
