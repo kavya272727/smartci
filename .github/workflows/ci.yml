@@ -29,6 +29,9 @@ jobs:
       - name: Predict build failure risk
         run: python scripts/predict_failure.py | tee -a $GITHUB_STEP_SUMMARY
 
+      - name: Demonstrate high-risk prediction
+        run: python scripts/predict_failure.py --changed-files 10 --lines-changed 1200 --test-files-changed 4 --previous-failures 3 | tee -a $GITHUB_STEP_SUMMARY
+
       - name: Run tests
         run: |
           set -o pipefail
