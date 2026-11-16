@@ -31,3 +31,9 @@ jobs:
         run: |
           set -o pipefail
           pytest ${{ steps.sel.outputs.tests }} 2>&1 | tee build.log
+
+      - name: Explain failure
+        if: failure()
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: python scripts/summarize_log.py build.log >> $GITHUB_STEP_SUMMARY
