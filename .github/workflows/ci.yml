@@ -37,3 +37,9 @@ jobs:
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: python scripts/summarize_log.py build.log >> $GITHUB_STEP_SUMMARY
+
+      - name: Explain failure with LLM
+        if: failure()
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+        run: python scripts/summarize_log.py build.log >> $GITHUB_STEP_SUMMARY
